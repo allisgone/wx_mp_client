@@ -51,10 +51,10 @@
 	import wxapi from '@/common/wxapi.js';
 	var VConsole = require("static/vconsole.min.js");
 	// 接收消息
-/* 	const getsocketData = e => { // 创建接收消息函数
+ 	const getsocketData = e => { // 创建接收消息函数
 		const data = e && e.detail.data
-		console.log(data)
-	} */
+		console.log("客户端接收到消息:"+data)
+	} 
 	export default {
 		data() {
 			return {
@@ -100,15 +100,15 @@
 
 			},
 			insuranceSilenceWechatLogin() {
-				let platformKey = "0bfb404b35a7f302f7da1191a4fa254c"; //在内部平台注册公众号配置后获取
-				let redirectUri = "http%3a%2f%2fviq9me.natappfree.cc%2fh5%2fpages%2findex%2fwxlogin%2fwxlogin"; //当前授权后跳转的地址 不一定是当前页 必须encode
+				let platformKey = "4f949a2e76f9971fccc8e1935000bed3"; //在内部平台注册公众号配置后获取
+				let redirectUri = "http%3A%2F%2Ffr5n2k.natappfree.cc%2fh5%2fpages%2findex%2fwxlogin%2fwxlogin"; //当前授权后跳转的地址 不一定是当前页 必须encode
 				window.location.href = "https://platform-pay.sqqmall.com/wx-oauth-web/code?platformKey=" + platformKey +
 					"&redirectUri=" + redirectUri +
 					"&state=ffgghh";
 			},
 			insuranceWechatLogin() {
 				let platformKey = "4f949a2e76f9971fccc8e1935000bed3"; //在内部平台注册公众号配置后获取
-				let redirectUri = "http%3a%2f%2fviq9me.natappfree.cc%2fh5%2fpages%2findex%2fwxlogin%2fwxlogin"; //当前授权后跳转的地址 不一定是当前页 必须encode
+				let redirectUri = "http%3A%2F%2Ffr5n2k.natappfree.cc%2fh5%2fpages%2findex%2fwxlogin%2fwxlogin"; //当前授权后跳转的地址 不一定是当前页 必须encode
 				window.location.href = "https://platform-pay.sqqmall.com/wx-oauth-web/code?platformKey=" + platformKey +
 					"&redirectUri=" + redirectUri +
 					"&state=aabbcc123";
@@ -125,7 +125,7 @@
 			//app内h5支付 不能使用insuranceWechatPay，因为支付后会回跳到浏览器而不是app内（注意：此处微信支付商户平台必须配置业务系统的h5支付域名）
 			insuranceWechatH5PayInApp() {
 				let platformPayKey = "e1a453e722356e7f87f6a5bf120278dc"; //在内部平台注册微信商户支付配置后获取
-				let clientWapUrl = "http://4pbtvf.natappfree.cc"; //当前支付后跳转的地址 不一定是当前页 因为是post提交 所以不需要encode
+				let clientWapUrl = "http://fr5n2k.natappfree.cc"; //当前支付后跳转的地址 不一定是当前页 因为是post提交 所以不需要encode
 				let orderFee = this.orderAmount;
 				let orderNo = this.orderNo;
 
@@ -150,7 +150,7 @@
 
 					console.log(url);
 					let data = {
-						"platformKey": "e78ca3754f8d433a3996da512ea1308e",
+						"platformKey": "4f949a2e76f9971fccc8e1935000bed3",
 						"url": url
 					}
 					this.$http.post('wx-platform-api/js-config', data)
@@ -207,7 +207,8 @@
 
 			},
 			sendMsg() {
-				this.$sendWSPush.sendWSPush("{'msg':'sdasdasd出错'}")
+				//模拟登录后建立长链接
+				this.$sendWSPush({'msgType':'login','from':'135790','msg':{}});
 			}
 		}
 	}
