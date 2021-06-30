@@ -30,4 +30,4 @@ const app = new Vue({
 })
 app.$mount()
 
-createSocket('ws://10.10.2.162:9000/demo')
+createSocket()
