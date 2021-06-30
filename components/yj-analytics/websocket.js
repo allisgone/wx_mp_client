@@ -5,11 +5,11 @@ let setIntervalWesocketPush = null
  * 建立websocket连接
  * @param {string} url ws地址
  */
-export const createSocket = url => {
+export const createSocket = () => {
   Socket && Socket.close()
   if (!Socket) {
     console.log('建立websocket连接')
-    Socket = new WebSocket(url)
+    Socket = new WebSocket('ws://10.10.1.215:10061/websocket')
     Socket.onopen = onopenWS
     Socket.onmessage = onmessageWS
     Socket.onerror = onerrorWS
@@ -32,6 +32,9 @@ const onerrorWS = () => {
   if (Socket.readyState !== 3) {
     Socket = null
     createSocket()
+	//重新发送用户登录信息
+	//todo 需要获取当前用户id重新自动登录
+	Socket.send(JSON.stringify({'msgType':'login','from':'135790','msg':{}}))
   }
 }
 
@@ -83,10 +86,10 @@ const oncloseWS = () => {
   }
 }
 /**发送心跳
- * @param {number} time 心跳间隔毫秒 默认5000
+ * @param {number} time 心跳间隔毫秒 默认60000
  * @param {string} ping 心跳名称 默认字符串ping
  */
-export const sendPing = (time = 5000, ping = 'ping') => {
+export const sendPing = (time = 60000, ping = "{'msgType':'ping','msg':{'content':'test'}}") => {
   clearInterval(setIntervalWesocketPush)
   Socket.send(ping)
   setIntervalWesocketPush = setInterval(() => {
